@@ -293,7 +293,9 @@ void parseGo(char* command) {
         Search::timeset = 1;
         // set up timing
         Search::time /= Search::movestogo;
-        Search::time -= 50;
+        // null move bug fix
+        if (Search::time > 1500)
+            Search::time -= 50;
         Search::stoptime = Search::starttime + Search::time + Search::inc;
     }
     // if depth is not available
@@ -301,8 +303,8 @@ void parseGo(char* command) {
         // set depth to 64 plies (basically inf)
         depth = 64;
     // print debug info
-    printf("time:%d start:%d stop:%d depth:%d timeset:%d\n",
-    Search::time, Search::starttime, Search::stoptime, depth, Search::timeset);
+    // printf("time:%d start:%d stop:%d depth:%d timeset:%d\n",
+    // Search::time, Search::starttime, Search::stoptime, depth, Search::timeset);
     // search position
     Search::searchPosition(depth);
 }
@@ -337,7 +339,7 @@ void UCI::uciLoop() {
         // parse UCI uci command
         else if (strncmp(input, "uci", 3) == 0) {
             // print engine info
-            printf("id name %s\n", NAME);
+            printf("id name %s%s\n", NAME, VERSION);
             printf("id author %s\n", AUTHOR);
             printf("uciok\n");
         }

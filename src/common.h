@@ -21,6 +21,7 @@
 */
 
 constexpr const char *NAME = "Kleos Classic";
+constexpr const char *VERSION = "V1.0";
 constexpr const char *AUTHOR = "NomadAvian";
 
 // bitboard datatype
